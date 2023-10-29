@@ -28,27 +28,18 @@
 %    Packages
 % =====================================================
 
-\usepackage{morewrites}
 \usepackage{pgfkeys}
-\usepackage{array}
-\usepackage{listings}
 \usepackage{lastpage}
 \usepackage{lipsum}
 
-% erlaubt mehrseitige Tabellen:  \begin{longtable}{|l|r|c|p{2cm}|} \hline ... \end{longtable}
-\usepackage{longtable}
-
-%\usepackage[linguistics]{forest}
 \usepackage[utf8]{inputenc}
 \usepackage[main=\mainLanguage]{babel}
 
 \usepackage{mVersion}
 \increaseBuild
 
-\usepackage{wasysym}
-\usepackage{xspace}
-\usepackage{xargs}
-\usepackage{yfonts}
+\usepackage{ifthen}
+\usepackage{graphicx}
 
 % Lade Pakete abhängig vom documentType.
 \IfStrEqCase{\documentType}{
@@ -77,15 +68,12 @@
 	properties/Subtitle/.initial 				= {MySubtitle},
 	properties/Institution/.initial 			= {MyInstitution},
 	properties/Group/.initial 					= {MyGroup},
-	properties/Subject/.initial 	      		= {},
 	properties/Versioning/.initial 	      		= {false},
 	misc/Date/Prefix/.initial					= {From: },
 	misc/Page/CountPrefix/.initial				= {Pages: },
 	misc/Group/Prefix/.initial					= {Group: },
 	misc/Version/Prefix/.initial				= {Version: },
-	Protocol/Comment/.initial 	        		= {},
-	Assignment/Type/.initial 					= {},
-	Assignment/Group/.initial 		    		= {}
+	Protocol/Comment/.initial 	        		= {MyComment},
 }
 
 
@@ -101,44 +89,45 @@
 % =====================================================
 %    Generiere passende Titelseiten, Kopfzeilen etc.
 % =====================================================
- \AtBeginDocument{
+\AtBeginDocument{
  	% Zulässige Werte testen
-% 	\begingroup
-% 		\newcommand{\checkBool}[1]{\ifthenelse{\equal{\get{#1}}{true} \OR \equal{\get{#1}}{false}}{}{\errmessage{Boolean '#1' must be 'true' or 'false'!}\stop}}
-% 		\checkBool{properties/Versioning}
-% 	\endgroup
+ 	\begingroup
+ 		\newcommand{\checkBool}[1]{\ifthenelse{\equal{\get{#1}}{true} \OR \equal{\get{#1}}{false}}{}{\errmessage{Boolean '#1' must be 'true' or 'false'!}\stop}}
+ 		\checkBool{properties/Versioning}
+ 	\endgroup
 
 	\setVersion{\get{misc/Version/Prefix}}
  	\IfStrEqCase{\documentType}{
-% 		{Protocol}{%
-% 			\thispagestyle{empty}
-% 			\vspace*{4em}
-% 			\begin{center}
-% 				\ifthenelse{\equal{\get{properties/Title}}{}}{}{{\Huge \textbf{\get{properties/Title}}\par}}
-% 				\ifthenelse{\equal{\get{properties/Subtitle}}{}}{}{\vspace*{.5em}{\large\textbf{\get{properties/Subtitle}}\par}}
-% 			\end{center}
-% 			\begin{flushright}
-% 				\ifthenelse{\equal{\get{Protocol/Comment}}{}}{}{{\em\vspace*{1em}\get{Protocol/Comment}\par}}
-% 				\ifthenelse{\equal{\get{properties/Versioning}}{true}}{\get{misc/Version/Prefix}\version, }{}\today\par\vspace*{1em}
-% 				\seperateAuthors{\par}
-% 			\end{flushright}
-%% 			\begin{center}
-%% 				\IfFileExists{titel.jpg}{%
-%% 					\includegraphics[width=\get{all/Icon/Breite}\textwidth]{titel.jpg}\par%
-%% 					\ifthenelse{\equal{\get{all/Icon/URL}}{}}{}{{\tiny \href{\get{all/Icon/URL}}{Quelle}}}
-%% 				}{}
-%% 			\end{center}
-% 			\newpage
-%
-% 			\pagenumbering{Roman}
-% 			\newpage
-% 			\tableofcontents
-%
-% 			\newpage
-%
-% 			\newpage
-% 			\pagenumbering{arabic}
-% 		}
+ 		{Protocol}{
+ 			\begin{titlepage}
+	 			\thispagestyle{empty}
+	 			\vspace*{4em}
+	 			\begin{center}
+%	 				\includegraphics[width=0.4\textwidth]{logo.jpg}\par
+%	 				\vspace{1cm}
+	 				
+	 				\Huge\textbf{\get{properties/Title}}\par
+	 				\vspace*{.5em}{\large\textbf{\get{properties/Subtitle}}\par}
+					\vfill
+	
+					\small
+	 				\ifthenelse{\equal{\get{Protocol/Comment}}{}}{}{{\em\vspace*{1em}\get{Protocol/Comment}\par}}
+	 				\ifthenelse{\equal{\get{properties/Versioning}}{true}}{\version}{}\par
+	 				\get{misc/Date/Prefix}\today\par
+	 				\vspace*{1em}
+	 				\vfill
+	 				
+	 				\Large\itshape\seperateAuthors{\par}
+	 				\vfill
+	 			\end{center}
+ 			\end{titlepage}
+
+ 			\pagenumbering{Roman}
+ 			\newpage
+ 			\tableofcontents
+ 			\newpage
+ 			\pagenumbering{arabic}
+ 		}
  		{Assignment}{
  			\setlength{\parindent}{0cm}
  			
@@ -170,77 +159,13 @@
 					\textbf{\get{properties/Title}} \emph{(\get{properties/Subtitle})}\\\seperateAuthors{, }
 				}
 				\fancyhead[R]{
-					\today\\\get{properties/Group}
+					\today\par\get{properties/Group}
 				}
 				\fancyfoot[C]{
 					\thepage
 				}
 			}
  			\pagestyle{defaultPage}
-
-
-% 			\expandafter\lhead{\autorTemp}
-% 			\chead{%
-% 				\IfFileExists{titel.jpg}{\includegraphics[width=\get{all/Icon/Breite}\textwidth]{titel.jpg}\\}{}
-% 				\ifthenelse{\equal{\get{Mitschriften/Gruppe}}{}}{}{Gruppe \get{Mitschriften/Gruppe}}
-% 			}
-% 			\rhead{\textbf{\emph{\get{Mitschriften/Vorlesungsname}}}\\\textbf{\get{Mitschriften/Typ}\ \get{Mitschriften/LfdNr}}\ifthenelse{\equal{\get{all/Version}}{true}}{\\Stand: \today}{}}
-% 			\lfoot{}
-% 			\cfoot{-- \thepage\ --}
-% 			\rfoot{}
-% 			
-% 			\global\long\def\headrulewidth{0.4pt}
-% 			\global\long\def\footrulewidth{0.4pt}
-% 			\ifthenelse{\equal{\get{all/Titel}}{}}%
-% 			{\section*{\get{Mitschriften/Typ}\ \get{Mitschriften/LfdNr}}}%
-% 			{\section*{\get{all/Titel}}}
-% 			
-% 			\ifthenelse{\equal{\get{all/Untertitel}}{}}{}{\subsubsection*{\get{all/Untertitel}}}
  		}
  	}
- }
-
-% \AtEndDocument{
-% 	\appendix
-%
-% 	\ifthenelse{\equal{\get{all/Index/Literatur/zeigen}}{true}}%
-% 	{%
-% 		\renewcommand{\bibname}{\get{all/Index/Literatur/titel}}
-% 		\bibliographystyle{alphadin}
-% 		\nocite{*}
-% 		\bibliography{quellen}
-% 	}%
-% 	{}
-%
-% 	\IfStrEqCase{\documentType}{
-% 		{Protocol}{%
-% 			\ifthenelse{\equal{\get{all/Index/Boxen/blau/zeigen}}{true}}{\tcblistof[\chapter]{blueboxes}{\get{all/Index/Boxen/blau/titel}}}{}
-%
-% 			\ifthenelse{\equal{\get{all/Index/Boxen/gelb/zeigen}}{true}}{\tcblistof[\chapter]{yellowboxes}{\get{all/Index/Boxen/gelb/titel}}}{}
-%
-% 			\ifthenelse{\equal{\get{all/Index/Boxen/gruen/zeigen}}{true}}{\tcblistof[\chapter]{greenboxes}{\get{all/Index/Boxen/gruen/titel}}}{}
-%
-% 			\newpage
-% 			\ifthenelse{\equal{\get{all/Index/Begriffe/zeigen}}{true}}{
-% 				\renewcommand{\indexname}{\get{all/Index/Begriffe/titel}}
-% 				\phantomsection
-% 				\addcontentsline{toc}{chapter}{\indexname}
-% 				\printindex
-% 			}{}
-% 		}
-% 		{Assignment}{%
-% 			\ifthenelse{\equal{\get{all/Index/Boxen/blau/zeigen}}{true}}{\tcblistof[\chapter]{blueboxes}{\get{all/Index/Boxen/blau/titel}}}{}
-%
-% 			\ifthenelse{\equal{\get{all/Index/Boxen/gelb/zeigen}}{true}}{\tcblistof[\chapter]{yellowboxes}{\get{all/Index/Boxen/gelb/titel}}}{}
-%
-% 			\ifthenelse{\equal{\get{all/Index/Boxen/gruen/zeigen}}{true}}{\tcblistof[\chapter]{greenboxes}{\get{all/Index/Boxen/gruen/titel}}}{}
-%
-% 			\ifthenelse{\equal{\get{all/Index/Begriffe/zeigen}}{true}}{
-% 				\renewcommand{\indexname}{\get{all/Index/Begriffe/titel}}
-% 				\addcontentsline{toc}{chapter}{\indexname}
-% 				\printindex
-% 			}{}
-% 		}
-% 	}
-% }
-
+}
