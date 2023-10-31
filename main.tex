@@ -35,11 +35,8 @@
 \usepackage[utf8]{inputenc}
 \usepackage[main=\mainLanguage]{babel}
 
-\usepackage{mVersion}
-\increaseBuild
-
 \usepackage{ifthen}
-\usepackage{graphicx}
+\usepackage{etoolbox}
 
 % Lade Pakete abhängig vom documentType.
 \IfStrEqCase{\documentType}{
@@ -76,7 +73,6 @@
 	Protocol/Comment/.initial 	        		= {MyComment},
 }
 
-
 % =====================================================
 %    Eigene Befehle
 % =====================================================
@@ -89,14 +85,19 @@
 % =====================================================
 %    Generiere passende Titelseiten, Kopfzeilen etc.
 % =====================================================
-\AtBeginDocument{
- 	% Zulässige Werte testen
- 	\begingroup
- 		\newcommand{\checkBool}[1]{\ifthenelse{\equal{\get{#1}}{true} \OR \equal{\get{#1}}{false}}{}{\errmessage{Boolean '#1' must be 'true' or 'false'!}\stop}}
- 		\checkBool{properties/Versioning}
- 	\endgroup
 
+\title{\get{properties/Title}}
+\author{\seperateAuthors{, }}
+	
+\newbool{useVersioning}
+\setbool{useVersioning}{\get{properties/Versioning}}
+\ifbool{useVersioning}{
+	\usepackage{mVersion}
 	\setVersion{\get{misc/Version/Prefix}}
+	\increaseBuild
+}{}
+
+\AtBeginDocument{
  	\IfStrEqCase{\documentType}{
  		{Protocol}{
  			\begin{titlepage}
@@ -112,7 +113,7 @@
 	
 					\small
 	 				\ifthenelse{\equal{\get{Protocol/Comment}}{}}{}{{\em\vspace*{1em}\get{Protocol/Comment}\par}}
-	 				\ifthenelse{\equal{\get{properties/Versioning}}{true}}{\version}{}\par
+	 				\ifbool{useVersioning}{\version}{}\par
 	 				\get{misc/Date/Prefix}\today\par
 	 				\vspace*{1em}
 	 				\vfill
