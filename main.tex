@@ -30,18 +30,23 @@
 
 \usepackage{pgfkeys}
 \usepackage{lastpage}
-\usepackage{lipsum}
-
-\usepackage[utf8]{inputenc}
-\usepackage[main=\mainLanguage]{babel}
 
 \usepackage{ifthen}
 \usepackage{etoolbox}
 
+\usepackage[utf8]{inputenc}
+\usepackage[main=\mainLanguage]{babel}
+
+\usepackage{lipsum}
+\usepackage{graphicx}
+\usepackage[\mainLanguage]{varioref}
+\usepackage{float}
+\usepackage{wrapfig}
+
 % Lade Pakete abhängig vom documentType.
 \IfStrEqCase{\documentType}{
 	{Protocol}{
-		\usepackage[a4paper]{geometry}
+		\usepackage[a4paper, includehead, includefoot, left=3.0cm, right=2.5cm, top=2.5cm, bottom=2cm]{geometry}
 		\usepackage[hyphens]{url}
 		\usepackage[pdftex,pdfborderstyle={/S/U/W 1}]{hyperref}
 	}
@@ -88,7 +93,10 @@
 
 \title{\get{properties/Title}}
 \author{\seperateAuthors{, }}
-	
+
+\addto\captionsngerman{\renewcommand{\figurename}{Abb.}}
+\addto\captionsenglish{\renewcommand{\figurename}{Fig.}}
+
 \newbool{useVersioning}
 \setbool{useVersioning}{\get{properties/Versioning}}
 \ifbool{useVersioning}{
