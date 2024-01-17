@@ -1,0 +1,37 @@
+\setlength{\parindent}{0cm}
+
+\fancypagestyle{firstPage}{
+	\setlength{\headheight}{75pt}
+	\fancyhf{}
+	\fancyhead[C]{
+		\seperateAuthors{, }\hfill{\get{Miscellaneous/Group/Prefix}\get{Properties/Group}} \\
+		\seperator
+		
+		\noindent\textbf{\get{Properties/Title}}\hfill{\textbf{\get{Properties/Institution}}} \\
+		\noindent\emph{\get{Properties/Subtitle}}
+		\hfill{Wintersemester 2023/2024}
+		
+		\noindent\get{Miscellaneous/Page/CountPrefix}\pageref*{LastPage}
+		\hfill{\get{Miscellaneous/Date/Prefix}\today}
+	}
+	\fancyfoot[C]{
+		\thepage
+	}
+}
+\thispagestyle{firstPage}
+
+\fancypagestyle{defaultPage}{
+	\setlength{\headheight}{29.5pt}
+	\setlength{\textheight}{630pt}
+	\fancyhf{}
+	\fancyhead[L]{
+		\textbf{\get{Properties/Title}} \emph{(\get{Properties/Subtitle})}\\\seperateAuthors{, }
+	}
+	\fancyhead[R]{
+		\today\par\get{Properties/Group}
+	}
+	\fancyfoot[C]{
+		\thepage
+	}
+}
+\pagestyle{defaultPage}

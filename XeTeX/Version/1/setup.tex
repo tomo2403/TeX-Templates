@@ -17,3 +17,28 @@
 \input{packages.tex}
 \input{variables.tex}
 \input{commands.tex}
+
+\title{\get{Properties/Title}}
+\author{\seperateAuthors{, }}
+
+\addto\captionsngerman{\renewcommand{\figurename}{Abb.}}
+\addto\captionsenglish{\renewcommand{\figurename}{Fig.}}
+
+\newbool{useVersioning}
+\setbool{useVersioning}{\get{Properties/Versioning}}
+\ifbool{useVersioning}{
+	\usepackage{mVersion}
+	\setVersion{\get{Miscellaneous/Version/Prefix}}
+	\increaseBuild
+}{}
+
+\AtBeginDocument{
+	\IfStrEqCase{\documentType}{
+		{Protocol}{
+			\input{style_protocol.tex}
+		}
+		{Assignment}{
+			\input{style_assignment.tex}
+		}
+	}
+}
