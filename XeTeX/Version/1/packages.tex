@@ -1,0 +1,32 @@
+\usepackage{pgfkeys}
+\usepackage{lastpage}
+
+\usepackage{ifthen}
+\usepackage{etoolbox}
+
+\usepackage[T1]{fontenc}
+\usepackage[main=\mainLanguage]{babel}
+\usepackage[usefilenames,DefaultFeatures={Ligatures=TeX}]{plex-otf}
+\renewcommand*\familydefault{\sfdefault}
+
+\usepackage{lipsum}
+\usepackage{graphicx}
+\usepackage[\mainLanguage]{varioref}
+\usepackage{float}
+\usepackage{wrapfig}
+
+% Load packages for documentType.
+\IfStrEqCase{\documentType}{
+	{Protocol}{
+		\usepackage[a4paper, includehead, includefoot, left=3.0cm, right=2.5cm, top=2.5cm, bottom=2cm]{geometry}
+		\usepackage[hyphens]{url}
+		\usepackage[xetex,pdfborderstyle={/S/U/W 1}]{hyperref}
+	}
+	{Assignment}{
+		\usepackage{fancyhdr}
+		\usepackage[a4paper]{geometry}
+		\usepackage[hyphens]{url}
+		\usepackage[xetex,pdfborderstyle={/S/U/W 1}]{hyperref}
+		\let\chapter\section
+	}
+}

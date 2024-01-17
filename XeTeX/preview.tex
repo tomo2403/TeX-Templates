@@ -1,0 +1,27 @@
+\def\templateVersion{1}
+\def\documentType{Protocol}
+\def\mainLanguage{ngerman}
+
+\newcommand{\templatePath}{.}
+\input{template.tex}
+
+\pgfqkeys{/Template/Properties}{
+	Authors					= {Max Mustermann},
+	Title					= {Template preview},
+	Subtitle				= {LaTeX-Templates},
+	Institution				= {WireDev-IT},
+	Group					= {Development},
+	Versioning				= {true}
+}
+
+\pgfqkeys{/Template/Miscellaneous}{
+	Date/Prefix				= {Date: },
+	Page/CountPrefix		= {Pages: },
+	Group/Prefix			= {}
+}
+
+\begin{document}
+	\chapter{Chapter}
+		\section{Section}
+			\lipsum
+\end{document}

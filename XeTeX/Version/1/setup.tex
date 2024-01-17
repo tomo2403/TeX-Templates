@@ -1,0 +1,19 @@
+\makeatletter
+\@ifundefined{documentType}{%
+	\errmessage{Provide a type for document!} %
+	\stop %
+}
+\@ifundefined{mainLanguage}{%
+	\errmessage{Set the document language!} %
+	\stop %
+}
+\makeatother
+
+\IfStrEqCase{\documentType}{
+	{Protocol}{\documentclass[12pt,\mainLanguage,openany,numbers=noenddot,listof=totoc,bibliography=totoc,oneside]{scrbook}}%
+	{Assignment}{\documentclass[a4paper,12pt,\mainLanguage,oneside]{scrartcl}}%
+}[\errmessage{Unknown type: \documentType}\stop]
+
+\input{packages.tex}
+\input{variables.tex}
+\input{commands.tex}

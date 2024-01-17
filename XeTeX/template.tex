@@ -1,0 +1,34 @@
+%###########################################################%
+%	XeTeX-Template (Version 1.0.0)							%
+%	Author:		Tom Mohr <https://tomo2403.de>				%
+%	License:	GNU General Public License v3.0				%
+%	Updates:	https://github.com/tomo2403/TeX-Templates	%
+%###########################################################%
+
+
+% Check definitions
+\RequirePackage{xstring}
+\makeatletter
+\@ifundefined{templateVersion}{
+	\errmessage{Choose a template version!}
+	\stop
+}
+\@ifundefined{templatePath}{
+	\ClassWarningNoLine{Template}{"templatePath" not set}
+	\def\templatePath{.}
+}
+\makeatother
+
+
+% Check choosen version
+\IfStrEqCase{\templateVersion}{
+	{1}{}%
+}[\errmessage{Unknown version: \templateVersion}\stop]
+
+
+% Load choosen version
+\newcommand{\versionPath}{\templatePath/Version/\templateVersion}
+\makeatletter
+\def\input@path{{\versionPath}}
+\makeatother
+\input{setup.tex}
