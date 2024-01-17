@@ -7,8 +7,17 @@
 %
 
 % 1. Chance path of template to local value.
-% 2. Imprort Template-Locator with '\input' in work file.
-% 3. Check if Git ignores the Template-Locator.
+% 2. Import Template-Locator als  '\templatePath' command in work file.
+% 3. Check if Git ignores this file.
 
-% Path:
-\input{./main.tex}
+% Path in second argument:
+\newcommand{\templatePath}{/LaTeX-Templates/XeTeX}
+
+% DO NOT CHANGE
+\makeatletter
+\def\input@path{{\templatePath}}
+\makeatother
+\input{/template.tex}
+\makeatletter
+\def\input@path{{./}}
+\makeatother
