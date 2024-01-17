@@ -1,0 +1,23 @@
+\def\documentType{Protocol}
+\def\mainLanguage{ngerman}
+
+\input{.template-locator.tex}
+
+\pgfqkeys{/TemplateVersion0}{
+	properties/Authors				= {Max Mustermann},
+	properties/Title				= {Template preview},
+	properties/Subtitle				= {LaTeX-Templates},
+	properties/Institution			= {WireDev-IT},
+	properties/Group				= {Development},
+	properties/Versioning			= {true},
+	misc/Date/Prefix				= {Date: },
+	misc/Page/CountPrefix			= {Pages: },
+	misc/Group/Prefix				= {},
+	Protocol/Comment				= {This is a comment}
+}
+
+\begin{document}
+	\chapter{Chapter}
+		\section{Section}
+			\lipsum
+\end{document}
