@@ -1,9 +1,9 @@
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%   LaTeX-Template, Version 0.1                	  	        %
-%   Author: 	Tom Mohr <https://tomo2403.de>              %
-%   License: 	GNU General Public License v3.0				%
-%   Updates: 	https://github.com/tomo2403/LaTeX-Templates %
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%###########################################################%
+%   XeTeX-Template (Version 1.0.0)							%
+%   Author:		Tom Mohr <https://tomo2403.de>				%
+%   License:	GNU General Public License v3.0				%
+%   Updates:	https://github.com/tomo2403/TeX-Templates	%
+%###########################################################%
 
 \RequirePackage{xstring}
 
@@ -34,8 +34,10 @@
 \usepackage{ifthen}
 \usepackage{etoolbox}
 
-\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
 \usepackage[main=\mainLanguage]{babel}
+\usepackage[usefilenames,DefaultFeatures={Ligatures=TeX}]{plex-otf}
+\renewcommand*\familydefault{\sfdefault}
 
 \usepackage{lipsum}
 \usepackage{graphicx}
@@ -48,13 +50,13 @@
 	{Protocol}{
 		\usepackage[a4paper, includehead, includefoot, left=3.0cm, right=2.5cm, top=2.5cm, bottom=2cm]{geometry}
 		\usepackage[hyphens]{url}
-		\usepackage[pdftex,pdfborderstyle={/S/U/W 1}]{hyperref}
+		\usepackage[xetex,pdfborderstyle={/S/U/W 1}]{hyperref}
 	}
 	{Assignment}{
 		\usepackage{fancyhdr}
 		\usepackage[a4paper]{geometry}
 		\usepackage[hyphens]{url}
-		\usepackage[pdftex,pdfborderstyle={/S/U/W 1}]{hyperref}
+		\usepackage[xetex,pdfborderstyle={/S/U/W 1}]{hyperref}
 		\let\chapter\section
 	}
 }
@@ -101,7 +103,7 @@
 \setbool{useVersioning}{\get{properties/Versioning}}
 \ifbool{useVersioning}{
 	\usepackage{mVersion}
-	\setVersion{\get{misc/Version/Prefix}}
+	\setVersion{1}
 	\increaseBuild
 }{}
 
@@ -121,7 +123,7 @@
 	
 					\small
 	 				\ifthenelse{\equal{\get{Protocol/Comment}}{}}{}{{\em\vspace*{1em}\get{Protocol/Comment}\par}}
-	 				\ifbool{useVersioning}{\version}{}\par
+	 				\ifbool{useVersioning}{\get{misc/Version/Prefix}\version}{}\par
 	 				\get{misc/Date/Prefix}\today\par
 	 				\vspace*{1em}
 	 				\vfill
