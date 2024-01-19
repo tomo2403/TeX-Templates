@@ -1,15 +1,18 @@
-\def\templateVersion{1}
+\def\templateVersion{latest}
+%\def\templatePath{.}
 \def\documentType{Assignment}
 \def\mainLanguage{ngerman}
-
-\newcommand{\templatePath}{.}
 \input{template.tex}
+
+\usepackage{plex-otf}
+\renewcommand*\familydefault{\sfdefault}
 
 \pgfqkeys{/Template/Properties}{
 	Authors					= {Max Mustermann},
 	Title					= {Template preview},
 	Subtitle				= {LaTeX-Templates},
-	Institution				= {WireDev-IT},
+	Placeholder01			= {WireDev-IT},
+	Placeholder02			= {Template preview},
 	Group					= {Development},
 	Versioning				= {true}
 }

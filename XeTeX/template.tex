@@ -10,11 +10,11 @@
 \RequirePackage{xstring}
 \makeatletter
 \@ifundefined{templateVersion}{
-	\errmessage{Choose a template version!}
+	\errmessage{Choose a template version! You can use "latest" for the latest version}
 	\stop
 }
 \@ifundefined{templatePath}{
-	\ClassWarningNoLine{Template}{"templatePath" not set}
+	\ClassWarningNoLine{Template}{You did not set the template path. I will use the current directory}
 	\def\templatePath{.}
 }
 \makeatother
@@ -22,7 +22,8 @@
 
 % Check choosen version
 \IfStrEqCase{\templateVersion}{
-	{1}{}%
+	{latest}{\def\templateVersion{1}}
+	{1}{}
 }[\errmessage{Unknown version: \templateVersion}\stop]
 
 
