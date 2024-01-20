@@ -1,37 +1,54 @@
+% !TeX root = setup.tex
+% !TeX spellcheck = en_US
+
 \setlength{\parindent}{0cm}
 
-\fancypagestyle{firstPage}{
-	\setlength{\headheight}{75pt}
-	\fancyhf{}
-	\fancyhead[C]{
-		\seperateAuthors{, }\hfill{\get{Miscellaneous/Group/Prefix}\get{Properties/Group}} \\
-		\seperator
-		
-		\noindent\textbf{\get{Properties/Title}}\hfill{\textbf{\get{Properties/Placeholder01}}} \\
-		\noindent\emph{\get{Properties/Subtitle}}
-		\hfill\get{Properties/Placeholder02}
-		
-		\noindent\get{Miscellaneous/Page/CountPrefix}\pageref*{LastPage}
-		\hfill{\get{Miscellaneous/Date/Prefix}\today}
-	}
-	\fancyfoot[C]{
-		\thepage
-	}
-}
-\thispagestyle{firstPage}
+%\newgeometry{head=7cm,centering,foot=2cm,headsep=1cm,footskip=1cm}
+%\savegeometry{firstPage}
 
-\fancypagestyle{defaultPage}{
-	\setlength{\headheight}{29.5pt}
-	\setlength{\textheight}{630pt}
-	\fancyhf{}
-	\fancyhead[L]{
-		\textbf{\get{Properties/Title}} \emph{(\get{Properties/Subtitle})}\\\seperateAuthors{, }
-	}
-	\fancyhead[R]{
-		\today\par\get{Properties/Group}
-	}
-	\fancyfoot[C]{
-		\thepage
+
+\newcommand{\templateHeaderL}{
+	\ifthenelse{\thepage = 1}{
+		\textbf{\get{Properties/Title}}\\
+		\emph{\get{Properties/Subtitle}}\\
+		\seperateAuthors{, }\\
+		\get{Miscellaneous/Page/CountPrefix}\pageref*{LastPage}
+	}{
+
 	}
 }
-\pagestyle{defaultPage}
+
+\newcommand{\templateHeaderR}{
+	\ifthenelse{\thepage = 1}{
+		\textbf{\get{Properties/Placeholder01}}\\
+		\get{Properties/Placeholder02}\\
+		\get{Miscellaneous/Group/Prefix}\get{Properties/Group}\\
+		\get{Miscellaneous/Date/Prefix}\today
+	}{
+
+	}
+}
+
+\ihead{\templateHeaderL}
+\ohead{\templateHeaderR}
+
+
+%\newgeometry{head=28pt,centering,foot=2cm,headsep=1cm,footskip=1cm}
+%\savegeometry{defaultPage}
+
+%\setlength{\headheight}{28pt}
+%\fancypagestyle{defaultPage}{
+%	%\setlength{\textheight}{630pt}
+%	\fancyhf{}
+%	\fancyhead[L]{
+%		\textbf{\get{Properties/Title}} \emph{(\get{Properties/Subtitle})}\\\seperateAuthors{, }
+%	}
+%	\fancyhead[R]{
+%		\today \\
+%		\get{Properties/Group}
+%	}
+%	\fancyfoot[C]{
+%		\thepage
+%	}
+%}
+%\pagestyle{defaultPage}

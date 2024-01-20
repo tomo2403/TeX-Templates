@@ -1,3 +1,6 @@
+% !TeX root = ../../template.tex
+% !TeX spellcheck = en_US
+
 \makeatletter
 \@ifundefined{documentType}{%
 	\errmessage{Provide a type for document!} %
@@ -11,12 +14,16 @@
 
 \IfStrEqCase{\documentType}{
 	{Protocol}{\documentclass[12pt,\mainLanguage,openany,numbers=noenddot,listof=totoc,bibliography=totoc,oneside]{scrbook}}%
-	{Assignment}{\documentclass[a4paper,12pt,\mainLanguage,oneside]{scrartcl}}%
+	{Assignment}{\documentclass[a4paper,12pt,\mainLanguage,oneside,sfdefaults=false]{scrbook}}%
 }[\errmessage{Unknown type: \documentType}\stop]
 
 \input{packages.tex}
 \input{variables.tex}
 \input{commands.tex}
+
+\ifdef{\debug}{
+	\geometry{showframe}
+}
 
 \title{\get{Properties/Title}}
 \author{\seperateAuthors{, }}

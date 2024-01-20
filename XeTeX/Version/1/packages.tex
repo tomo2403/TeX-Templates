@@ -1,11 +1,15 @@
+% !TeX root = setup.tex
+% !TeX spellcheck = en_US
+
 \usepackage{pgfkeys}
 \usepackage{lastpage}
 
 \usepackage{ifthen}
-\usepackage{etoolbox}
+%\usepackage{etoolbox}
 
 \usepackage[T1]{fontenc}
 \usepackage[main=\mainLanguage]{babel}
+\RequirePackage{fix-cm}
 
 \usepackage{lipsum}
 \usepackage{graphicx}
@@ -16,13 +20,13 @@
 % Load packages for documentType.
 \IfStrEqCase{\documentType}{
 	{Protocol}{
-		\usepackage[a4paper, includehead, includefoot, left=3.0cm, right=2.5cm, top=2.5cm, bottom=2cm]{geometry}
+		\usepackage[a4paper, includeheadfoot, left=3.0cm, right=2.5cm, top=2.5cm, bottom=2cm]{geometry}
 		\usepackage[hyphens]{url}
 		\usepackage[xetex,pdfborderstyle={/S/U/W 1}]{hyperref}
 	}
 	{Assignment}{
-		\usepackage{fancyhdr}
-		\usepackage[a4paper]{geometry}
+		\usepackage{scrlayer-scrpage}
+		\usepackage[a4paper, includeheadfoot]{geometry}
 		\usepackage[hyphens]{url}
 		\usepackage[xetex,pdfborderstyle={/S/U/W 1}]{hyperref}
 		\let\chapter\section
