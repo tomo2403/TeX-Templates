@@ -10,6 +10,7 @@
 \usepackage[T1]{fontenc}
 \usepackage[main=\mainLanguage]{babel}
 \RequirePackage{fix-cm}
+\usepackage{calc}
 
 \usepackage{lipsum}
 \usepackage{graphicx}
@@ -25,8 +26,9 @@
 		\usepackage[xetex,pdfborderstyle={/S/U/W 1}]{hyperref}
 	}
 	{Assignment}{
-		\usepackage{scrlayer-scrpage}
-		\usepackage[a4paper, includeheadfoot]{geometry}
+		\def\templateGeometryDefault{a4paper, margin=2.5cm, right=3.5cm, headsep=1cm, includeheadfoot, centering}
+		\usepackage[\templateGeometryDefault, head=2cm]{geometry}
+		\usepackage{scrlayer-fancyhdr}
 		\usepackage[hyphens]{url}
 		\usepackage[xetex,pdfborderstyle={/S/U/W 1}]{hyperref}
 		\let\chapter\section

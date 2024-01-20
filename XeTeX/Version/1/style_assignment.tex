@@ -6,49 +6,42 @@
 %\newgeometry{head=7cm,centering,foot=2cm,headsep=1cm,footskip=1cm}
 %\savegeometry{firstPage}
 
-
-\newcommand{\templateHeaderL}{
-	\ifthenelse{\thepage = 1}{
+\fancypagestyle{firstPage}{
+	%\setlength{\headheight}{1cm}
+	\fancyhf{}
+	\fancyhead[L]{
+		\seperateAuthors{, }\\
+		\seperator\\
 		\textbf{\get{Properties/Title}}\\
 		\emph{\get{Properties/Subtitle}}\\
-		\seperateAuthors{, }\\
 		\get{Miscellaneous/Page/CountPrefix}\pageref*{LastPage}
-	}{
-
 	}
-}
-
-\newcommand{\templateHeaderR}{
-	\ifthenelse{\thepage = 1}{
+	\fancyhead[R]{
+		\get{Miscellaneous/Group/Prefix}\get{Properties/Group}\\
+		\seperator\\
 		\textbf{\get{Properties/Placeholder01}}\\
 		\get{Properties/Placeholder02}\\
-		\get{Miscellaneous/Group/Prefix}\get{Properties/Group}\\
 		\get{Miscellaneous/Date/Prefix}\today
-	}{
-
+	}
+	\fancyfoot[C]{
+		\thepage
 	}
 }
+\thispagestyle{firstPage}
 
-\ihead{\templateHeaderL}
-\ohead{\templateHeaderR}
-
-
-%\newgeometry{head=28pt,centering,foot=2cm,headsep=1cm,footskip=1cm}
-%\savegeometry{defaultPage}
-
-%\setlength{\headheight}{28pt}
-%\fancypagestyle{defaultPage}{
-%	%\setlength{\textheight}{630pt}
-%	\fancyhf{}
-%	\fancyhead[L]{
-%		\textbf{\get{Properties/Title}} \emph{(\get{Properties/Subtitle})}\\\seperateAuthors{, }
-%	}
-%	\fancyhead[R]{
-%		\today \\
-%		\get{Properties/Group}
-%	}
-%	\fancyfoot[C]{
-%		\thepage
-%	}
-%}
-%\pagestyle{defaultPage}
+\fancypagestyle{defaultPage}{
+	\setlength{\headheight}{1in}
+	\fancyhf{}
+	\fancyhead[L]{
+		\textbf{\get{Properties/Title}} \emph{(\get{Properties/Subtitle})}\\
+		\seperateAuthors{, }
+	}
+	\fancyhead[R]{
+		\today\\
+		\get{Properties/Group}
+	}
+	\fancyfoot[C]{
+		\thepage
+	}
+}
+\pagestyle{defaultPage}
